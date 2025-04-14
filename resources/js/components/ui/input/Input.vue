@@ -7,6 +7,7 @@ const props = defineProps<{
     defaultValue?: string | number;
     modelValue?: string | number;
     class?: HTMLAttributes['class'];
+    placeholder? : string;
 }>();
 
 const emits = defineEmits<{
@@ -28,5 +29,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
                 props.class,
             )
         "
+        :placeholder="placeholder"
     />
 </template>

@@ -90,3 +90,7 @@ html {
         @apply bg-background text-foreground;
     }
 }
+
+#app {
+    height: 100%;
+}
