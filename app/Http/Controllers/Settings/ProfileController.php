@@ -10,19 +10,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
+
+    public function index(User $user)
+    {
+        return Inertia::render('profile/View', [
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'user' => $user
+        ]);
+    }
+
+
+
     /**
      * Show the user's profile settings page.
      */
-    public function edit(Request $request): Response
-    {
-        return Inertia::render('settings/Profile', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => $request->session()->get('status'),
-        ]);
-    }
+    // public function edit(Request $request): Response
+    // {
+    //     return Inertia::render('settings/Profile', [
+    //         'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+    //         'status' => $request->session()->get('status'),
+    //     ]);
+    // }
 
     /**
      * Update the user's profile information.
@@ -36,8 +49,9 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        $user = $request->user();
 
-        return to_route('profile.edit');
+        return to_route('profile', $user->username);
     }
 
     /**
