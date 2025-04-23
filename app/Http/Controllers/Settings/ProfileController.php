@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\User;
@@ -92,7 +93,10 @@ class ProfileController extends Controller
         $cover = $data['cover'] ?? null;
 
         if($cover) {
-            $path = $cover->store('avatars/'.$user->id, 'public');
+            if($user->cover_path) {
+                Storage::disk('public')->delete($user->cover_path);
+            }
+            $path = $cover->store('user-'.$user->id, 'public');
             $user->update(['cover_path' => $path]);
         }
 
