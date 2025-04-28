@@ -54,7 +54,7 @@ class ProfileController extends Controller
         $request->user()->save();
         $user = $request->user();
 
-        return to_route('profile', $user->username);
+        return to_route('profile', $user->username)->with('success', 'Your profile details has been updated.');
     }
 
     /**
@@ -80,7 +80,6 @@ class ProfileController extends Controller
 
     public function updateImage(Request $request)
     {
-        //dd($request);
         $data = $request->validate([
             'cover' => ['nullable', 'image'],
             'avatar' => ['nullable', 'image']
