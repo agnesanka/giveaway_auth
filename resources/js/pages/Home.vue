@@ -5,6 +5,10 @@ import GroupList from '@/components/app/GroupList.vue';
 import PostList from '@/components/app/PostList.vue';
 import AppHeaderLayout from '@/layouts/app/AppHeaderLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+
+defineProps({
+    posts: Object
+});
 </script>
 
 <template>
@@ -24,7 +28,7 @@ import { Head, Link } from '@inertiajs/vue3';
             </div>
             <div class="lg:col-span-6 lg:order-2 h-full overflow-hidden flex flex-col">
                 <CreatePost />
-                <PostList class="flex-1" />
+                <PostList :posts="posts.data" class="flex-1" />
             </div>
         </div>
     </AppHeaderLayout>
