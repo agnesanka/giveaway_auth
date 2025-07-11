@@ -4,7 +4,7 @@ import FollowingList from '@/components/app/FollowingList.vue';
 import GroupList from '@/components/app/GroupList.vue';
 import PostList from '@/components/app/PostList.vue';
 import AppHeaderLayout from '@/layouts/app/AppHeaderLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 
 defineProps({
     posts: Object

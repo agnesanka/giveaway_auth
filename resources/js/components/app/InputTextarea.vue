@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 import { useVModel } from '@vueuse/core';
 import type { HTMLAttributes } from 'vue';
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const props = defineProps<{
     defaultValue?: string | number;
@@ -11,7 +11,7 @@ const props = defineProps<{
     placeholder?: string;
     autoResize: {
         type: Boolean,
-        default: true
+        default: true,
     };
 }>();
 
@@ -28,12 +28,20 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 function onInputChange($event) {
     emits('update:modelValue', $event.target.value)
+    adjustHeight()    
+}
 
+function adjustHeight() {
     if (props.autoResize) {
         input.value.style.height = 'auto';
         input.value.style.height = input.value.scrollHeight + 'px';
     }
 }
+
+onMounted( () => {
+    adjustHeight()
+})
+
 </script>
 
 <template>
