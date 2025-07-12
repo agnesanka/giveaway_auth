@@ -20,6 +20,9 @@ Route::post('/post', [PostController::class, 'store'])
 Route::put('/post/{post}', [PostController::class, 'update'])
     ->name('post.update')
     ->middleware(['auth', 'verified']);
+Route::delete('/post/{post}', [PostController::class, 'destroy'])
+    ->name('post.destroy')
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
